@@ -837,12 +837,13 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                         <Text
                           text={pin.label}
                           x={px - 20}
-                          y={py - 8}
+                          y={py - 10}
                           width={40}
                           align="center"
-                          fontSize={6}
-                          fill="#52525b"
-                          fontFamily="monospace"
+                          fontSize={8}
+                          fontStyle="bold"
+                          fill={mode === "schematic" ? "#0f172a" : "#ffffff"}
+                          fontFamily="sans-serif"
                           listening={false}
                         />
                       )}
