@@ -114,6 +114,7 @@ export interface Net {
   name: string; // Nama logic
   segments: TraceSegment[];
   connectedPins: string[]; // Kumpulan pinId yang saling terhubung (format: "componentId:pinId")
+  bendStyle?: 'horizontal-first' | 'vertical-first' | 'straight';
 }
 
 export interface BoardState {

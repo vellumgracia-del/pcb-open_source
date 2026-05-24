@@ -31,6 +31,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
     removeTraceSegment,
     wireStartPin,
     setWireStartPin,
+    updateNetBendStyle,
   } = useBoardStore();
 
   const drcViolations = runDRCCheck(boardState, drcSettings);
@@ -44,6 +45,27 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
   
   // Track active connection creation
   const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
+
+  // Wire / Trace routing style state
+  const [bendStyle, setBendStyle] = useState<'horizontal-first' | 'vertical-first' | 'straight'>('horizontal-first');
+
+  // Spacebar toggle routing direction
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "Space") {
+        if (activeTool === "wire" || activeTool === "trace") {
+          e.preventDefault();
+          setBendStyle((prev) => {
+            if (prev === "horizontal-first") return "vertical-first";
+            if (prev === "vertical-first") return "straight";
+            return "horizontal-first";
+          });
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeTool]);
 
   // Responsive canvas size
   useEffect(() => {
@@ -252,16 +274,25 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
         if (mode === "pcb" && hasSegments) continue;
 
         const isSelected = selectedNetId === netId;
+        
+        const x1 = pinCoords[i].x;
+        const y1 = pinCoords[i].y;
+        const x2 = pinCoords[i + 1].x;
+        const y2 = pinCoords[i + 1].y;
+
+        const currentBendStyle = net.bendStyle || (mode === "schematic" ? "horizontal-first" : "straight");
+
+        let pts = [x1, y1, x2, y2];
+        if (currentBendStyle === "horizontal-first") {
+          pts = [x1, y1, x2, y1, x2, y2];
+        } else if (currentBendStyle === "vertical-first") {
+          pts = [x1, y1, x1, y2, x2, y2];
+        }
 
         elements.push(
           <Line
             key={`rats_${netId}_${i}`}
-            points={[
-              pinCoords[i].x,
-              pinCoords[i].y,
-              pinCoords[i + 1].x,
-              pinCoords[i + 1].y,
-            ]}
+            points={pts}
             stroke={
               isSimActive
                 ? "#22c55e"
@@ -316,6 +347,14 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
           <span>TOOL:</span>
           <span className="text-emerald-800 font-bold uppercase">{activeTool}</span>
         </div>
+        {(activeTool === "wire" || activeTool === "trace") && (
+          <div className="bg-white/95 border border-zinc-200/80 rounded-xl px-3.5 py-2 text-[10px] font-mono flex items-center gap-2 shadow-md text-zinc-650">
+            <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+            <span>BEND STYLE:</span>
+            <span className="text-emerald-800 font-bold uppercase">{bendStyle.replace("-", " ")}</span>
+            <span className="text-[9px] text-zinc-400 font-sans font-normal ml-1">(Press [Spacebar] to Toggle)</span>
+          </div>
+        )}
         {wireStartPin && (
           <div className="bg-emerald-50 border border-emerald-200/80 rounded-xl px-3.5 py-2 text-[10px] font-mono flex items-center gap-2 shadow-md text-emerald-800">
             <span className="font-bold animate-pulse">CONNECTING PIN:</span>
@@ -405,14 +444,16 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
             const curPos = getCanvasCursorPos();
             if (!startCoords || !curPos) return null;
 
+            let pts = [startCoords.x, startCoords.y, curPos.x, curPos.y];
+            if (bendStyle === "horizontal-first") {
+              pts = [startCoords.x, startCoords.y, curPos.x, startCoords.y, curPos.x, curPos.y];
+            } else if (bendStyle === "vertical-first") {
+              pts = [startCoords.x, startCoords.y, startCoords.x, curPos.y, curPos.x, curPos.y];
+            }
+
             return (
               <Line
-                points={[
-                  startCoords.x,
-                  startCoords.y,
-                  curPos.x,
-                  curPos.y,
-                ]}
+                points={pts}
                 stroke="#10b981"
                 strokeWidth={1.5}
                 dash={[5, 5]}
@@ -681,12 +722,14 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                             } else {
                               // Connect start pin to current pin
                               if (wireStartPin.compId !== comp.id || wireStartPin.pinId !== pin.pinId) {
-                                connectPins(
+                                const netId = connectPins(
                                   wireStartPin.compId,
                                   wireStartPin.pinId,
                                   comp.id,
                                   pin.pinId
                                 );
+                                // Persist the bendStyle selected during interactive draw
+                                updateNetBendStyle(netId, bendStyle);
                               }
                               setWireStartPin(null);
                             }
@@ -728,15 +771,60 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                                     pin.pinId
                                   );
 
-                                  // Add the copper trace segment to the net
-                                  addTraceSegment(netId, {
-                                    startX: startCoords.x,
-                                    startY: startCoords.y,
-                                    endX: endCoords.x,
-                                    endY: endCoords.y,
-                                    width: activeLayer === "TopCopper" ? 0.3 : 0.25,
-                                    layer: activeLayer,
-                                  });
+                                  // Update the net's bend style to keep it persistent
+                                  updateNetBendStyle(netId, bendStyle);
+
+                                  const traceWidth = activeLayer === "TopCopper" ? 0.3 : 0.25;
+
+                                  if (bendStyle === "horizontal-first" && startCoords.x !== endCoords.x && startCoords.y !== endCoords.y) {
+                                    // Add horizontal trace segment
+                                    addTraceSegment(netId, {
+                                      startX: startCoords.x,
+                                      startY: startCoords.y,
+                                      endX: endCoords.x,
+                                      endY: startCoords.y,
+                                      width: traceWidth,
+                                      layer: activeLayer,
+                                    });
+                                    // Add vertical trace segment
+                                    addTraceSegment(netId, {
+                                      startX: endCoords.x,
+                                      startY: startCoords.y,
+                                      endX: endCoords.x,
+                                      endY: endCoords.y,
+                                      width: traceWidth,
+                                      layer: activeLayer,
+                                    });
+                                  } else if (bendStyle === "vertical-first" && startCoords.x !== endCoords.x && startCoords.y !== endCoords.y) {
+                                    // Add vertical trace segment
+                                    addTraceSegment(netId, {
+                                      startX: startCoords.x,
+                                      startY: startCoords.y,
+                                      endX: startCoords.x,
+                                      endY: endCoords.y,
+                                      width: traceWidth,
+                                      layer: activeLayer,
+                                    });
+                                    // Add horizontal trace segment
+                                    addTraceSegment(netId, {
+                                      startX: startCoords.x,
+                                      startY: endCoords.y,
+                                      endX: endCoords.x,
+                                      endY: endCoords.y,
+                                      width: traceWidth,
+                                      layer: activeLayer,
+                                    });
+                                  } else {
+                                    // Straight/diagonal or collinear case
+                                    addTraceSegment(netId, {
+                                      startX: startCoords.x,
+                                      startY: startCoords.y,
+                                      endX: endCoords.x,
+                                      endY: endCoords.y,
+                                      width: traceWidth,
+                                      layer: activeLayer,
+                                    });
+                                  }
                                 }
                               }
                               setWireStartPin(null);

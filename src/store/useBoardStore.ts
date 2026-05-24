@@ -37,6 +37,7 @@ interface BoardStore {
   setSimulatingNetState: (netId: string, state: boolean) => void;
   removeNet: (netId: string) => void; // <-- Add this!
   removeTraceSegment: (netId: string, segmentIndex: number) => void;
+  updateNetBendStyle: (netId: string, style: 'horizontal-first' | 'vertical-first' | 'straight') => void;
   loadDemoBoard: () => void;
 }
 
@@ -375,6 +376,26 @@ export const useBoardStore = create<BoardStore>()(
                 [netId]: {
                   ...net,
                   segments: updatedSegments,
+                },
+              },
+            },
+          };
+        });
+      },
+
+      updateNetBendStyle: (netId, style) => {
+        set((state) => {
+          const net = state.boardState.nets[netId];
+          if (!net) return state;
+
+          return {
+            boardState: {
+              ...state.boardState,
+              nets: {
+                ...state.boardState.nets,
+                [netId]: {
+                  ...net,
+                  bendStyle: style,
                 },
               },
             },

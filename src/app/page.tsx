@@ -58,6 +58,7 @@ export default function Home() {
     removeTraceSegment,
     wireStartPin,
     setWireStartPin,
+    updateNetBendStyle,
   } = useBoardStore();
 
   const [mode, setMode] = useState<"schematic" | "pcb">("schematic");
@@ -536,6 +537,34 @@ void loop() {
                     <span className="text-zinc-500 font-mono">Copper Segments</span>
                     <span className="font-semibold text-zinc-700 font-mono text-[11px]">{boardState.nets[selectedNetId].segments.length}</span>
                   </div>
+                </div>
+
+                {/* Wire / Trace Bend Style Selector */}
+                <div>
+                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-2.5 font-mono">WIRE / TRACE ROUTING STYLE</h3>
+                  <div className="grid grid-cols-3 gap-1 rounded-xl bg-zinc-100 p-1 border border-zinc-200/80">
+                    {(["horizontal-first", "vertical-first", "straight"] as const).map((style) => {
+                      const isActive = (boardState.nets[selectedNetId].bendStyle || (mode === "schematic" ? "horizontal-first" : "straight")) === style;
+                      return (
+                        <button
+                          key={style}
+                          onClick={() => updateNetBendStyle(selectedNetId, style)}
+                          className={`rounded-lg py-1 px-0.5 text-[8.5px] font-bold tracking-tight transition cursor-pointer text-center ${
+                            isActive
+                              ? "bg-white text-emerald-800 border border-emerald-800/10 shadow-sm"
+                              : "text-zinc-500 hover:text-zinc-800"
+                          }`}
+                        >
+                          {style === "horizontal-first" && "⚙ HORIZ"}
+                          {style === "vertical-first" && "⚙ VERT"}
+                          {style === "straight" && "⚡ STRAIGHT"}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="text-[8.5px] text-zinc-400 mt-1 font-mono leading-relaxed">
+                    Set default routing direction to avoid routing behind/underneath other devices.
+                  </p>
                 </div>
 
                 {/* Operations */}
