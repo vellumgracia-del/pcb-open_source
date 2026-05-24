@@ -267,5 +267,142 @@ export const COMPONENT_LIBRARY: Record<string, LibraryComponent> = {
     pins: [
       { pinId: "H", label: "HOLE", x: 0, y: 0 }
     ]
+  },
+  "ARDUINO_UNO_R3": {
+    name: "Arduino Uno R3 Board",
+    category: "MCU",
+    packageType: ComponentPackage.ESP32_WROOM_32,
+    width: 53.3,
+    height: 68.6,
+    color: "#1d4ed8", // Arduino Blue
+    description: "Standard ATmega328P based 8-bit Microcontroller Board simulated in Wokwi",
+    pins: [
+      { pinId: "D0", label: "D0 / RX", x: -25, y: -28 },
+      { pinId: "D1", label: "D1 / TX", x: -25, y: -25 },
+      { pinId: "D2", label: "D2", x: -25, y: -22 },
+      { pinId: "D3", label: "D3 / PWM", x: -25, y: -19 },
+      { pinId: "D4", label: "D4", x: -25, y: -16 },
+      { pinId: "D5", label: "D5 / PWM", x: -25, y: -13 },
+      { pinId: "D6", label: "D6 / PWM", x: -25, y: -10 },
+      { pinId: "D7", label: "D7", x: -25, y: -7 },
+      { pinId: "D8", label: "D8", x: -25, y: -4 },
+      { pinId: "D9", label: "D9 / PWM", x: -25, y: -1 },
+      { pinId: "D10", label: "D10 / PWM", x: -25, y: 2 },
+      { pinId: "D11", label: "D11 / PWM", x: -25, y: 5 },
+      { pinId: "D12", label: "D12", x: -25, y: 8 },
+      { pinId: "D13", label: "D13", x: -25, y: 11 },
+      { pinId: "GND_D", label: "GND", x: -25, y: 14 },
+      { pinId: "AREF", label: "AREF", x: -25, y: 17 },
+      { pinId: "SDA_D", label: "SDA", x: -25, y: 20 },
+      { pinId: "SCL_D", label: "SCL", x: -25, y: 23 },
+      
+      { pinId: "A0", label: "A0", x: 25, y: -20 },
+      { pinId: "A1", label: "A1", x: 25, y: -17 },
+      { pinId: "A2", label: "A2", x: 25, y: -14 },
+      { pinId: "A3", label: "A3", x: 25, y: -11 },
+      { pinId: "A4", label: "A4 / SDA", x: 25, y: -8 },
+      { pinId: "A5", label: "A5 / SCL", x: 25, y: -5 },
+      { pinId: "5V", label: "5V", x: 25, y: 1 },
+      { pinId: "3V3", label: "3V3", x: 25, y: 4 },
+      { pinId: "GND_A", label: "GND", x: 25, y: 7 },
+      { pinId: "VIN", label: "VIN", x: 25, y: 10 },
+      { pinId: "RST", label: "RESET", x: 25, y: 13 }
+    ]
+  },
+  "RASPBERRY_PI_PICO": {
+    name: "Raspberry Pi Pico",
+    category: "MCU",
+    packageType: ComponentPackage.DIP_40,
+    width: 21.0,
+    height: 51.0,
+    color: "#0f766e", // RP Teal
+    description: "RP2040 Dual-core ARM Cortex-M0+ 32-bit Microcontroller Board simulated in Wokwi",
+    pins: [
+      { pinId: "GP0", label: "GP0 / TX", x: -10, y: -24 },
+      { pinId: "GP1", label: "GP1 / RX", x: -10, y: -21.5 },
+      { pinId: "GND1", label: "GND", x: -10, y: -19 },
+      { pinId: "GP2", label: "GP2", x: -10, y: -16.5 },
+      { pinId: "GP3", label: "GP3", x: -10, y: -14 },
+      { pinId: "GP4", label: "GP4", x: -10, y: -11.5 },
+      { pinId: "GP5", label: "GP5", x: -10, y: -9 },
+      { pinId: "GND2", label: "GND", x: -10, y: -6.5 },
+      { pinId: "GP6", label: "GP6", x: -10, y: -4 },
+      { pinId: "GP7", label: "GP7", x: -10, y: -1.5 },
+      { pinId: "GP8", label: "GP8", x: -10, y: 1 },
+      { pinId: "GP9", label: "GP9", x: -10, y: 3.5 },
+      { pinId: "GND3", label: "GND", x: -10, y: 6 },
+      { pinId: "GP10", label: "GP10", x: -10, y: 8.5 },
+      { pinId: "GP11", label: "GP11", x: -10, y: 11 },
+      { pinId: "GP12", label: "GP12", x: -10, y: 13.5 },
+      { pinId: "GP13", label: "GP13", x: -10, y: 16 },
+      { pinId: "GND4", label: "GND", x: -10, y: 18.5 },
+      { pinId: "GP14", label: "GP14", x: -10, y: 21 },
+      { pinId: "GP15", label: "GP15", x: -10, y: 23.5 },
+      
+      { pinId: "GP16", label: "GP16", x: 10, y: 23.5 },
+      { pinId: "GP17", label: "GP17", x: 10, y: 21 },
+      { pinId: "GND5", label: "GND", x: 10, y: 18.5 },
+      { pinId: "GP18", label: "GP18", x: 10, y: 16 },
+      { pinId: "GP19", label: "GP19", x: 10, y: 13.5 },
+      { pinId: "GP20", label: "GP20", x: 10, y: 11 },
+      { pinId: "GP21", label: "GP21", x: 10, y: 8.5 },
+      { pinId: "GND6", label: "GND", x: 10, y: 6 },
+      { pinId: "GP22", label: "GP22", x: 10, y: 3.5 },
+      { pinId: "RUN", label: "RUN", x: 10, y: 1 },
+      { pinId: "GP26", label: "GP26 / AD0", x: 10, y: -1.5 },
+      { pinId: "GP27", label: "GP27 / AD1", x: 10, y: -4 },
+      { pinId: "GND7", label: "AGND", x: 10, y: -6.5 },
+      { pinId: "GP28", label: "GP28 / AD2", x: 10, y: -9 },
+      { pinId: "VREF", label: "ADC_VREF", x: 10, y: -11.5 },
+      { pinId: "3V3", label: "3V3_OUT", x: 10, y: -14 },
+      { pinId: "3V3_EN", label: "3V3_EN", x: 10, y: -16.5 },
+      { pinId: "GND8", label: "GND", x: 10, y: -19 },
+      { pinId: "VSYS", label: "VSYS", x: 10, y: -21.5 },
+      { pinId: "VBUS", label: "VBUS", x: 10, y: -24 }
+    ]
+  },
+  "OLED_SSD1306": {
+    name: "OLED SSD1306 Screen (I2C)",
+    category: "Discrete",
+    packageType: ComponentPackage.SOIC_8,
+    width: 28.0,
+    height: 28.0,
+    color: "#27272a", // Charcoal Dark
+    description: "0.96 inch 128x64 pixels monochromatic OLED screen simulated in Wokwi",
+    pins: [
+      { pinId: "GND", label: "GND", x: -9, y: -12 },
+      { pinId: "VCC", label: "VCC", x: -3, y: -12 },
+      { pinId: "SCL", label: "SCL", x: 3, y: -12 },
+      { pinId: "SDA", label: "SDA", x: 9, y: -12 }
+    ]
+  },
+  "DHT22_SENSOR": {
+    name: "DHT22 Temperature & Humidity",
+    category: "Discrete",
+    packageType: ComponentPackage.RADIAL_5MM,
+    width: 15.0,
+    height: 20.0,
+    color: "#bae6fd", // Light blue grill
+    description: "High-precision digital air temperature and relative humidity sensor in Wokwi",
+    pins: [
+      { pinId: "VDD", label: "VDD", x: -4.5, y: 8 },
+      { pinId: "DATA", label: "DATA", x: -1.5, y: 8 },
+      { pinId: "NC", label: "NC (No Conn)", x: 1.5, y: 8 },
+      { pinId: "GND", label: "GND", x: 4.5, y: 8 }
+    ]
+  },
+  "SERVO_SG90": {
+    name: "SG90 Micro Servo 9g",
+    category: "Discrete",
+    packageType: ComponentPackage.RADIAL_5MM,
+    width: 23.0,
+    height: 12.0,
+    color: "#2563eb", // Servo Blue
+    description: "Micro stepper / servo actuator controlled by PWM pin simulated in Wokwi",
+    pins: [
+      { pinId: "PWM", label: "PWM (Orange)", x: -6, y: 4 },
+      { pinId: "VCC", label: "VCC (Red)", x: 0, y: 4 },
+      { pinId: "GND", label: "GND (Brown)", x: 6, y: 4 }
+    ]
   }
 };

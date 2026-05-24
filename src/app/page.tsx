@@ -156,30 +156,30 @@ void loop() {
   const drcViolations = runDRCCheck(boardState, drcSettings);
 
   return (
-    <div className="flex h-screen flex-col bg-[#05070a] text-zinc-100 font-sans antialiased overflow-hidden">
+    <div className="flex h-screen flex-col bg-[#f8fafc] text-zinc-800 font-sans antialiased overflow-hidden">
       {/* 1. Header Studio */}
-      <header className="flex h-14 items-center justify-between border-b border-zinc-800/40 bg-[#080b11]/80 backdrop-blur-md px-6">
+      <header className="flex h-14 items-center justify-between border-b border-zinc-200 bg-white/95 px-6 shadow-sm z-20">
         <div className="flex items-center gap-3">
-          <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 text-white font-bold shadow-lg shadow-cyan-500/10">
+          <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 to-emerald-800 text-white font-bold shadow-lg shadow-emerald-700/10">
             P
             <div className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <div>
-            <h1 className="text-sm font-semibold tracking-wide bg-gradient-to-r from-zinc-100 via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+            <h1 className="text-sm font-bold tracking-wide text-zinc-800">
               PCB STUDIO V2
             </h1>
-            <p className="text-[9px] text-zinc-500 font-mono tracking-widest">WORKSPACE // OFFLINE_MODE</p>
+            <p className="text-[9px] text-zinc-400 font-mono tracking-widest">WORKSPACE // OFFLINE_MODE</p>
           </div>
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex items-center rounded-xl bg-[#0a0d16]/80 p-0.5 border border-zinc-800/40">
+        <div className="flex items-center rounded-xl bg-zinc-100 p-0.5 border border-zinc-200/80">
           <button
             onClick={() => setMode("schematic")}
-            className={`flex items-center gap-2 rounded-lg px-3.5 py-1 text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-lg px-3.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
               mode === "schematic"
-                ? "bg-[#0e1628] text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-950/20"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "bg-white text-emerald-800 border border-emerald-800/10 shadow-sm"
+                : "text-zinc-500 hover:text-zinc-850"
             }`}
           >
             <Cpu className="h-3.5 w-3.5" />
@@ -187,10 +187,10 @@ void loop() {
           </button>
           <button
             onClick={() => setMode("pcb")}
-            className={`flex items-center gap-2 rounded-lg px-3.5 py-1 text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-lg px-3.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
               mode === "pcb"
-                ? "bg-[#0e1628] text-indigo-400 border border-indigo-500/20 shadow-lg shadow-indigo-950/20"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "bg-white text-emerald-800 border border-emerald-800/10 shadow-sm"
+                : "text-zinc-500 hover:text-zinc-850"
             }`}
           >
             <Layers className="h-3.5 w-3.5" />
@@ -207,38 +207,38 @@ void loop() {
                 "// Press 'Run Logic Simulation' to initiate testing...",
               ]);
             }}
-            className="flex items-center gap-1.5 rounded-xl border border-emerald-800/30 bg-emerald-950/20 hover:bg-emerald-950/40 hover:border-emerald-700/40 px-3.5 py-1.5 text-xs font-semibold text-emerald-400 transition cursor-pointer shadow-lg shadow-emerald-950/10"
+            className="flex items-center gap-1.5 rounded-xl border border-emerald-600/30 bg-emerald-50 hover:bg-emerald-100/80 hover:border-emerald-500/40 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 transition cursor-pointer shadow-sm shadow-emerald-100/10"
           >
-            <Zap className="h-3.5 w-3.5 animate-pulse" />
+            <Zap className="h-3.5 w-3.5 text-emerald-600" />
             Pre-flight Sim
           </button>
           <button
             onClick={() => exportGerber(boardState, activeLayer)}
-            className="flex items-center gap-1.5 rounded-xl border border-zinc-800/60 bg-zinc-900/30 hover:bg-zinc-800/40 hover:border-zinc-700/60 px-3 py-1.5 text-xs font-semibold text-zinc-300 transition cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm transition cursor-pointer"
           >
-            <Download className="h-3.5 w-3.5 text-indigo-400" />
+            <Download className="h-3.5 w-3.5 text-emerald-700" />
             Gerber
           </button>
           <button
             onClick={() => exportBOM(boardState)}
-            className="flex items-center gap-1.5 rounded-xl border border-zinc-800/60 bg-zinc-900/30 hover:bg-zinc-800/40 hover:border-zinc-700/60 px-3 py-1.5 text-xs font-semibold text-zinc-300 transition cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm transition cursor-pointer"
           >
-            <FileText className="h-3.5 w-3.5 text-yellow-500" />
+            <FileText className="h-3.5 w-3.5 text-yellow-600" />
             BOM CSV
           </button>
 
-          <div className="h-5 w-px bg-zinc-800/40 mx-1" />
+          <div className="h-5 w-px bg-zinc-200 mx-1" />
 
           <button
             onClick={loadDemoBoard}
-            className="flex items-center gap-1.5 rounded-xl border border-zinc-800/60 bg-zinc-900/30 hover:bg-zinc-800/40 hover:border-zinc-700/60 px-3.5 py-1.5 text-xs font-medium text-zinc-300 transition cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 px-3.5 py-1.5 text-xs font-medium text-zinc-600 shadow-sm transition cursor-pointer"
           >
-            <FolderOpen className="h-3.5 w-3.5 text-cyan-400" />
+            <FolderOpen className="h-3.5 w-3.5 text-emerald-600" />
             Load Demo Board
           </button>
           <button
             onClick={clearBoard}
-            className="flex items-center gap-1.5 rounded-xl border border-zinc-800/60 bg-zinc-900/30 hover:bg-red-950/20 hover:border-red-900/30 px-3.5 py-1.5 text-xs font-medium text-zinc-400 hover:text-red-400 transition cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-red-50 hover:border-red-200 px-3.5 py-1.5 text-xs font-medium text-zinc-500 hover:text-red-650 shadow-sm transition cursor-pointer"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Clear Board
@@ -250,25 +250,25 @@ void loop() {
       <div className="flex flex-1 overflow-hidden">
         
         {/* 2. Left Panel: Component Library */}
-        <aside className="w-80 border-r border-zinc-800/40 bg-[#080a10] flex flex-col overflow-hidden">
+        <aside className="w-80 border-r border-zinc-200 bg-white flex flex-col overflow-hidden shadow-sm">
           {/* Search Header */}
-          <div className="p-4 border-b border-zinc-800/40 bg-zinc-950/20">
-            <h2 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-2 font-mono">COMPONENT CATALOG</h2>
+          <div className="p-4 border-b border-zinc-200 bg-zinc-50/50">
+            <h2 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-2 font-mono">COMPONENT CATALOG</h2>
             <div className="relative mb-2.5">
               <input
                 type="text"
                 placeholder="Search parts..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-zinc-800/60 bg-zinc-950/40 px-3.5 py-1.5 pl-8 text-xs text-zinc-200 placeholder-zinc-500 focus:border-cyan-500/50 focus:outline-none transition-all font-sans"
+                className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-1.5 pl-8 text-xs text-zinc-800 placeholder-zinc-400 focus:border-emerald-600/40 focus:ring-1 focus:ring-emerald-800/10 focus:outline-none transition-all font-sans shadow-sm"
               />
-              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs select-none">
+              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs select-none">
                 🔍
               </span>
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 text-xs px-1"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-650 text-xs px-1"
                 >
                   ✕
                 </button>
@@ -283,8 +283,8 @@ void loop() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-2.5 py-1 rounded-lg text-[9px] font-bold border transition whitespace-nowrap cursor-pointer ${
                     selectedCategory === cat
-                      ? "bg-cyan-500/10 border-cyan-500/30 text-cyan-400 shadow-sm"
-                      : "bg-zinc-950/30 border-zinc-850/50 text-zinc-400 hover:text-zinc-200"
+                      ? "bg-emerald-700/10 border-emerald-700/30 text-emerald-800 shadow-sm"
+                      : "bg-white border-zinc-200 text-zinc-500 hover:text-zinc-800"
                   }`}
                 >
                   {cat.toUpperCase()}
@@ -307,7 +307,7 @@ void loop() {
 
                 if (filtered.length === 0) {
                   return (
-                    <div className="text-center py-8 text-zinc-500 text-xs font-sans">
+                    <div className="text-center py-8 text-zinc-400 text-xs font-sans">
                       No components found matching current filters.
                     </div>
                   );
@@ -322,33 +322,33 @@ void loop() {
                     }}
                     className={`group relative rounded-xl border p-3.5 cursor-pointer transition-all duration-200 flex flex-col ${
                       selectedLibraryRef === key
-                        ? "bg-[#0e1726]/40 border-cyan-500/50 shadow-md shadow-cyan-950/30"
-                        : "bg-zinc-950/20 border-zinc-800/40 hover:border-zinc-700/60 hover:bg-zinc-900/10"
+                        ? "bg-emerald-50/20 border-emerald-600/40 shadow-sm"
+                        : "bg-white border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50/20"
                     }`}
                   >
                     {/* Active glowing indicator */}
                     {selectedLibraryRef === key && (
-                      <span className="absolute top-3.5 left-2 h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400 animate-pulse" />
+                      <span className="absolute top-3.5 left-2 h-1.5 w-1.5 rounded-full bg-emerald-700 shadow-sm shadow-emerald-700 animate-pulse" />
                     )}
 
                     <div className={`flex items-center justify-between mb-1.5 ${selectedLibraryRef === key ? "pl-2" : ""}`}>
-                      <span className="text-xs font-semibold tracking-wide text-zinc-200 group-hover:text-cyan-400 transition font-sans">
+                      <span className="text-xs font-bold tracking-wide text-zinc-800 group-hover:text-emerald-800 transition font-sans">
                         {item.name}
                       </span>
-                      <span className="rounded bg-zinc-900 border border-zinc-800/60 px-1.5 py-0.5 text-[8px] text-zinc-400 uppercase font-mono">
+                      <span className="rounded bg-zinc-50 border border-zinc-200 px-1.5 py-0.5 text-[8px] text-zinc-500 uppercase font-mono">
                         {item.category}
                       </span>
                     </div>
-                    <span className="text-[10px] text-zinc-500 mb-2 font-mono">
+                    <span className="text-[10px] text-zinc-450 mb-2 font-mono">
                       Footprint: {item.packageType}
                     </span>
-                    <p className="text-[10px] text-zinc-400 leading-snug">
+                    <p className="text-[10px] text-zinc-500 leading-snug">
                       {item.description}
                     </p>
 
-                    <div className="mt-2.5 flex items-center justify-between text-[9px] text-zinc-500">
+                    <div className="mt-2.5 flex items-center justify-between text-[9px] text-zinc-400">
                       <span>Pins: {item.pins.length}</span>
-                      <span className="text-zinc-650 font-mono">{item.width}x{item.height} mm</span>
+                      <span className="text-zinc-450 font-mono">{item.width}x{item.height} mm</span>
                     </div>
                   </div>
                 ));
@@ -358,9 +358,9 @@ void loop() {
         </aside>
 
         {/* 3. Center Area: Canvas Workspace */}
-        <main className="flex-1 p-4 bg-[#05070a] flex flex-col overflow-hidden relative">
+        <main className="flex-1 p-4 bg-[#f8fafc] flex flex-col overflow-hidden relative">
           {/* Floating Tools Dock */}
-          <div className="absolute top-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 bg-[#080b12]/90 backdrop-blur-md border border-zinc-800/80 rounded-2xl px-2.5 py-2 shadow-2xl shadow-black/50 transition-all duration-200">
+          <div className="absolute top-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 bg-white/95 backdrop-blur-md border border-zinc-200 rounded-2xl px-2.5 py-2 shadow-xl shadow-zinc-300/40 transition-all duration-200">
             {(["select", "component", "wire", "trace", "delete"] as const).map((t) => (
               <button
                 key={t}
@@ -371,8 +371,8 @@ void loop() {
                 title={`Tool: ${t.toUpperCase()}`}
                 className={`flex h-9 w-9 items-center justify-center rounded-xl border transition cursor-pointer relative group ${
                   activeTool === t
-                    ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-400 shadow-md shadow-cyan-950/20"
-                    : "bg-zinc-950/30 border-zinc-850/50 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700/60 hover:bg-zinc-900/20"
+                    ? "bg-emerald-700/10 border-emerald-700/30 text-emerald-800 shadow-sm"
+                    : "bg-zinc-50 border-zinc-200 text-zinc-500 hover:text-zinc-850 hover:bg-zinc-100/50"
                 }`}
               >
                 {t === "select" && <MousePointer className="h-4 w-4" />}
@@ -382,7 +382,7 @@ void loop() {
                 {t === "delete" && <Trash2 className="h-4 w-4" />}
                 
                 {/* Floating Tool Name Tooltip */}
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-[8px] font-bold text-zinc-400 font-mono tracking-wider uppercase select-none transition-all duration-150 shadow-md pointer-events-none whitespace-nowrap z-50">
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded text-[8px] font-bold text-zinc-100 font-mono tracking-wider uppercase select-none transition-all duration-150 shadow-md pointer-events-none whitespace-nowrap z-50">
                   {t}
                 </div>
               </button>
@@ -391,10 +391,10 @@ void loop() {
             {/* Dynamic Placer Active Label */}
             {activeTool === "component" && selectedLibraryRef && (
               <>
-                <div className="h-6 w-px bg-zinc-800/60 mx-2" />
+                <div className="h-6 w-px bg-zinc-200 mx-2" />
                 <div className="flex flex-col pr-2 animate-in fade-in slide-in-from-left-2 duration-150">
-                  <span className="text-[7.5px] font-bold tracking-widest text-zinc-500 font-mono uppercase">PLACING_COMPONENT</span>
-                  <span className="text-[10px] font-semibold text-cyan-400 max-w-[140px] truncate font-sans">
+                  <span className="text-[7.5px] font-bold tracking-widest text-zinc-450 font-mono uppercase">PLACING_COMPONENT</span>
+                  <span className="text-[10px] font-bold text-emerald-800 max-w-[140px] truncate font-sans">
                     {COMPONENT_LIBRARY[selectedLibraryRef]?.name}
                   </span>
                 </div>
@@ -406,37 +406,37 @@ void loop() {
         </main>
 
         {/* 4. Right Panel: Properties & Design Rules */}
-        <aside className="w-80 border-l border-zinc-800/40 bg-[#080a10] flex flex-col overflow-hidden">
+        <aside className="w-80 border-l border-zinc-200 bg-white flex flex-col overflow-hidden shadow-sm">
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             {selectedComponent ? (
               // Component Properties Panel
               <div className="flex flex-col gap-5">
                 <div>
-                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-1 font-mono">PROPERTIES</h2>
-                  <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-                    <Cpu className="h-4 w-4 text-cyan-400" />
+                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-1 font-mono">PROPERTIES</h2>
+                  <h3 className="text-sm font-bold text-zinc-800 flex items-center gap-2">
+                    <Cpu className="h-4 w-4 text-emerald-700" />
                     {selectedComponent.libraryRef}
                   </h3>
-                  <span className="text-[9px] text-zinc-600 font-mono uppercase tracking-widest">{selectedComponent.id}</span>
+                  <span className="text-[9px] text-zinc-400 font-mono uppercase tracking-widest">{selectedComponent.id}</span>
                 </div>
 
                 {/* Footprint Specifications */}
-                <div className="rounded-xl border border-zinc-800/50 bg-[#0b0e16]/60 p-3.5 flex flex-col gap-2.5 shadow-md shadow-black/10">
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-3.5 flex flex-col gap-2.5 shadow-sm shadow-zinc-100/5">
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Package Footprint</span>
-                    <span className="font-semibold text-zinc-300 font-mono text-[11px]">{selectedComponent.packageType}</span>
+                    <span className="font-semibold text-zinc-700 font-mono text-[11px]">{selectedComponent.packageType}</span>
                   </div>
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Layer Location</span>
-                    <span className="font-semibold text-zinc-300 font-mono text-[11px]">{selectedComponent.layer}</span>
+                    <span className="font-semibold text-zinc-700 font-mono text-[11px]">{selectedComponent.layer}</span>
                   </div>
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Active Rotation</span>
-                    <span className="font-semibold text-cyan-400 font-mono text-[11px]">{selectedComponent.rotation}°</span>
+                    <span className="font-semibold text-emerald-700 font-mono text-[11px]">{selectedComponent.rotation}°</span>
                   </div>
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Position (X, Y)</span>
-                    <span className="font-semibold text-zinc-300 font-mono text-[11px]">
+                    <span className="font-semibold text-zinc-700 font-mono text-[11px]">
                       {selectedComponent.position.x.toFixed(1)}, {selectedComponent.position.y.toFixed(1)} mm
                     </span>
                   </div>
@@ -446,14 +446,14 @@ void loop() {
                 <div className="flex gap-2 font-sans">
                   <button
                     onClick={() => updateComponentRotation(selectedComponent.id)}
-                    className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-zinc-800 bg-[#0c0f17] hover:bg-[#121622] hover:border-zinc-700/80 px-3 py-2 text-xs font-semibold transition cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-350 px-3 py-2 text-xs font-semibold text-zinc-700 transition cursor-pointer shadow-sm"
                   >
-                    <RotateCw className="h-3.5 w-3.5 text-zinc-400" />
+                    <RotateCw className="h-3.5 w-3.5 text-zinc-500" />
                     Rotate 90°
                   </button>
                   <button
                     onClick={() => removeComponent(selectedComponent.id)}
-                    className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-red-950/30 bg-red-950/10 hover:bg-red-950/20 hover:border-red-900/40 px-3 py-2 text-xs font-semibold text-red-400 transition cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-red-100 bg-red-50 hover:bg-red-100 hover:border-red-200 px-3 py-2 text-xs font-semibold text-red-650 transition cursor-pointer shadow-sm"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     Delete
@@ -462,24 +462,24 @@ void loop() {
 
                 {/* Pins and Connections List */}
                 <div>
-                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-2.5 font-mono">PINS & NETLIST ({selectedComponent.pins.length})</h3>
+                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-2.5 font-mono">PINS & NETLIST ({selectedComponent.pins.length})</h3>
                   <div className="flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
                     {selectedComponent.pins.map((pin) => (
                       <div 
                         key={pin.pinId}
-                        className="flex items-center justify-between rounded-xl border border-zinc-800/40 bg-zinc-950/15 p-2.5 text-xs hover:bg-zinc-900/10 transition"
+                        className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-2.5 text-xs hover:bg-zinc-50 transition shadow-sm"
                       >
                         <div className="flex items-center gap-1.5">
-                          <span className="inline-block w-5 rounded bg-zinc-900 border border-zinc-800/50 text-center text-[9px] font-bold text-zinc-500 font-mono">
+                          <span className="inline-block w-5 rounded bg-zinc-100 border border-zinc-200 text-center text-[9px] font-bold text-zinc-500 font-mono">
                             {pin.pinId.replace("pin_", "").toUpperCase()}
                           </span>
-                          <span className="font-semibold text-zinc-300 font-mono text-[10px]">{pin.label}</span>
+                          <span className="font-semibold text-zinc-700 font-mono text-[10px]">{pin.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`text-[9px] font-mono rounded-lg px-2 py-0.5 border ${
                             pin.connectedNetId 
-                              ? "bg-emerald-950/10 text-emerald-400 border-emerald-900/30" 
-                              : "bg-zinc-900/30 text-zinc-500 border-zinc-800/30"
+                              ? "bg-emerald-50 text-emerald-800 border-emerald-100/60" 
+                              : "bg-zinc-50 text-zinc-400 border-zinc-200/60"
                           }`}>
                             {pin.connectedNetId 
                               ? boardState.nets[pin.connectedNetId]?.name || "Connected" 
@@ -490,7 +490,7 @@ void loop() {
                             <button
                               onClick={() => setWireStartPin(null)}
                               title="Batal hubungkan kabel"
-                              className="flex items-center justify-center h-6 w-6 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold animate-pulse cursor-pointer"
+                              className="flex items-center justify-center h-6 w-6 rounded-lg bg-emerald-700/10 border border-emerald-700/30 text-emerald-800 font-bold animate-pulse cursor-pointer"
                             >
                               <Zap className="h-3 w-3" />
                             </button>
@@ -504,7 +504,7 @@ void loop() {
                                 });
                               }}
                               title="Tarik kabel dari pin ini"
-                              className="flex items-center justify-center h-6 w-6 rounded-lg border border-zinc-800/60 bg-[#0e1322] hover:bg-zinc-850 text-zinc-500 hover:text-cyan-400 hover:border-cyan-500/40 transition cursor-pointer"
+                              className="flex items-center justify-center h-6 w-6 rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-400 hover:text-emerald-850 hover:border-emerald-600/30 transition cursor-pointer"
                             >
                               <Zap className="h-3 w-3" />
                             </button>
@@ -519,22 +519,22 @@ void loop() {
               // Net / Wire Properties Panel
               <div className="flex flex-col gap-5">
                 <div>
-                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-1 font-mono">NET PROPERTIES</h2>
-                  <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-1.5 font-sans">
-                    <Activity className="h-4 w-4 text-cyan-400" />
+                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-1 font-mono">NET PROPERTIES</h2>
+                  <h3 className="text-sm font-bold text-zinc-800 flex items-center gap-1.5 font-sans">
+                    <Activity className="h-4 w-4 text-emerald-700" />
                     {boardState.nets[selectedNetId].name}
                   </h3>
-                  <span className="text-[9px] text-zinc-600 font-mono uppercase tracking-widest">{selectedNetId}</span>
+                  <span className="text-[9px] text-zinc-400 font-mono uppercase tracking-widest">{selectedNetId}</span>
                 </div>
 
-                <div className="rounded-xl border border-zinc-800/50 bg-[#0b0e16]/60 p-3.5 flex flex-col gap-2.5 shadow-md shadow-black/10">
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-3.5 flex flex-col gap-2.5 shadow-sm shadow-zinc-100/5">
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Connected Pins</span>
-                    <span className="font-semibold text-zinc-300 font-mono text-[11px]">{boardState.nets[selectedNetId].connectedPins.length}</span>
+                    <span className="font-semibold text-zinc-700 font-mono text-[11px]">{boardState.nets[selectedNetId].connectedPins.length}</span>
                   </div>
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-500 font-mono">Copper Segments</span>
-                    <span className="font-semibold text-zinc-300 font-mono text-[11px]">{boardState.nets[selectedNetId].segments.length}</span>
+                    <span className="font-semibold text-zinc-700 font-mono text-[11px]">{boardState.nets[selectedNetId].segments.length}</span>
                   </div>
                 </div>
 
@@ -543,7 +543,7 @@ void loop() {
                   {boardState.nets[selectedNetId].segments.length > 0 && (
                     <button
                       onClick={() => clearTraceSegments(selectedNetId)}
-                      className="flex items-center justify-center gap-1.5 rounded-xl border border-yellow-950/30 bg-yellow-950/10 hover:bg-yellow-950/20 hover:border-yellow-900/40 px-3 py-2 text-xs font-semibold text-yellow-400 transition cursor-pointer"
+                      className="flex items-center justify-center gap-1.5 rounded-xl border border-yellow-200 bg-yellow-50 hover:bg-yellow-100 hover:border-yellow-300 px-3 py-2 text-xs font-semibold text-yellow-800 transition cursor-pointer shadow-sm"
                     >
                       <RotateCw className="h-3.5 w-3.5" />
                       Clear Copper Traces
@@ -554,7 +554,7 @@ void loop() {
                       removeNet(selectedNetId);
                       setSelectedNetId(null);
                     }}
-                    className="flex items-center justify-center gap-1.5 rounded-xl border border-red-950/30 bg-red-950/10 hover:bg-red-950/20 hover:border-red-900/40 px-3 py-2 text-xs font-semibold text-red-400 transition cursor-pointer"
+                    className="flex items-center justify-center gap-1.5 rounded-xl border border-red-100 bg-red-50 hover:bg-red-100 hover:border-red-200 px-3 py-2 text-xs font-semibold text-red-650 transition cursor-pointer shadow-sm"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     Hapus Seluruh Kabel
@@ -563,16 +563,16 @@ void loop() {
 
                 {/* Pin Connections */}
                 <div>
-                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-2.5 font-mono">CONNECTED PINS</h3>
+                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-2.5 font-mono">CONNECTED PINS</h3>
                   <div className="flex flex-col gap-1.5 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
                     {boardState.nets[selectedNetId].connectedPins.map((pinRef) => {
                       const [compId, pinId] = pinRef.split(":");
                       const comp = boardState.components[compId];
                       const pinLabel = comp?.pins.find(p => p.pinId === pinId)?.label || pinId;
                       return (
-                        <div key={pinRef} className="flex items-center justify-between rounded-xl border border-zinc-800/40 bg-zinc-950/15 p-2.5 text-xs text-zinc-300 font-mono">
+                        <div key={pinRef} className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-2.5 text-xs text-zinc-700 font-mono shadow-sm">
                           <span>{comp ? `${comp.libraryRef.split("_")[0]} (${pinLabel})` : pinRef}</span>
-                          <span className="text-[9px] text-zinc-650 uppercase">{compId.split("_")[1] || compId}</span>
+                          <span className="text-[9px] text-zinc-400 uppercase">{compId.split("_")[1] || compId}</span>
                         </div>
                       );
                     })}
@@ -582,20 +582,20 @@ void loop() {
                 {/* Individual Segment List */}
                 {boardState.nets[selectedNetId].segments.length > 0 && (
                   <div>
-                    <h3 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-2.5 font-mono">COPPER TRACE SEGMENTS</h3>
+                    <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-2.5 font-mono">COPPER TRACE SEGMENTS</h3>
                     <div className="flex flex-col gap-1.5 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
                       {boardState.nets[selectedNetId].segments.map((seg, idx) => (
-                        <div key={idx} className="flex items-center justify-between rounded-xl border border-zinc-800/40 bg-zinc-950/15 p-2.5 text-xs">
-                          <div className="flex flex-col text-[10px] font-mono text-zinc-400 leading-tight">
+                        <div key={idx} className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-2.5 text-xs shadow-sm">
+                          <div className="flex flex-col text-[10px] font-mono text-zinc-550 leading-tight">
                             <span>Seg #{idx + 1} ({seg.layer === "TopCopper" ? "Top" : "Bottom"})</span>
-                            <span className="text-[9px] text-zinc-500 font-mono">
+                            <span className="text-[9px] text-zinc-400 font-mono">
                               ({seg.startX.toFixed(1)}, {seg.startY.toFixed(1)}) → ({seg.endX.toFixed(1)}, {seg.endY.toFixed(1)})
                             </span>
                           </div>
                           <button
                             onClick={() => removeTraceSegment(selectedNetId, idx)}
                             title="Delete this segment"
-                            className="p-1 rounded-lg hover:bg-red-950/20 hover:text-red-400 text-zinc-500 transition cursor-pointer"
+                            className="p-1 rounded-lg hover:bg-red-50 hover:text-red-650 text-zinc-400 transition cursor-pointer"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </button>
@@ -609,9 +609,9 @@ void loop() {
               // Board settings panel
               <div className="flex flex-col gap-6">
                 <div>
-                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-1 font-mono">PROPERTIES</h2>
-                  <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-1.5">
-                    <Settings className="h-4 w-4 text-cyan-400" />
+                  <h2 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-1 font-mono">PROPERTIES</h2>
+                  <h3 className="text-sm font-bold text-zinc-800 flex items-center gap-1.5">
+                    <Settings className="h-4 w-4 text-emerald-700" />
                     Board Dimensions
                   </h3>
                 </div>
@@ -619,29 +619,29 @@ void loop() {
                 {/* Board Width/Height inputs */}
                 <div className="grid grid-cols-2 gap-3.5">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">WIDTH (mm)</label>
+                    <label className="text-[9px] text-zinc-400 font-mono uppercase tracking-wider">WIDTH (mm)</label>
                     <input
                       type="number"
                       value={boardWidth}
                       onChange={handleWidthChange}
-                      className="rounded-xl border border-zinc-800 bg-zinc-950/30 px-3 py-1.5 font-mono text-xs text-zinc-200 focus:border-cyan-500 focus:outline-none transition"
+                      className="rounded-xl border border-zinc-200 bg-zinc-50/50 px-3 py-1.5 font-mono text-xs text-zinc-800 focus:border-emerald-600/40 focus:ring-1 focus:ring-emerald-800/10 focus:outline-none transition shadow-sm"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">HEIGHT (mm)</label>
+                    <label className="text-[9px] text-zinc-400 font-mono uppercase tracking-wider">HEIGHT (mm)</label>
                     <input
                       type="number"
                       value={boardHeight}
                       onChange={handleHeightChange}
-                      className="rounded-xl border border-zinc-800 bg-zinc-950/30 px-3 py-1.5 font-mono text-xs text-zinc-200 focus:border-cyan-500 focus:outline-none transition"
+                      className="rounded-xl border border-zinc-200 bg-zinc-50/50 px-3 py-1.5 font-mono text-xs text-zinc-800 focus:border-emerald-600/40 focus:ring-1 focus:ring-emerald-800/10 focus:outline-none transition shadow-sm"
                     />
                   </div>
                 </div>
 
                 {/* DRC settings */}
-                <div className="border-t border-zinc-800/40 pt-5">
-                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-4 font-mono flex items-center gap-1.5">
-                    <Activity className="h-4 w-4 text-indigo-400" />
+                <div className="border-t border-zinc-200/80 pt-5">
+                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-4 font-mono flex items-center gap-1.5">
+                    <Activity className="h-4 w-4 text-emerald-700" />
                     DESIGN RULE CHECK (DRC)
                   </h3>
                   
@@ -649,7 +649,7 @@ void loop() {
                     <div className="flex flex-col gap-1.5">
                       <div className="flex justify-between items-center">
                         <label className="text-[10px] text-zinc-500 font-mono uppercase">Min Trace Width (mm)</label>
-                        <span className="text-[10px] text-cyan-400 font-mono">{drcSettings.minTraceWidth}</span>
+                        <span className="text-[10px] text-emerald-800 font-bold font-mono">{drcSettings.minTraceWidth}</span>
                       </div>
                       <input
                         type="range"
@@ -658,14 +658,14 @@ void loop() {
                         step="0.05"
                         value={drcSettings.minTraceWidth}
                         onChange={(e) => updateDRCSettings({ minTraceWidth: parseFloat(e.target.value) })}
-                        className="accent-cyan-500 cursor-pointer"
+                        className="accent-emerald-700 cursor-pointer"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <div className="flex justify-between items-center">
                         <label className="text-[10px] text-zinc-500 font-mono uppercase">Min Clearance (mm)</label>
-                        <span className="text-[10px] text-cyan-400 font-mono">{drcSettings.minClearance}</span>
+                        <span className="text-[10px] text-emerald-800 font-bold font-mono">{drcSettings.minClearance}</span>
                       </div>
                       <input
                         type="range"
@@ -674,14 +674,14 @@ void loop() {
                         step="0.05"
                         value={drcSettings.minClearance}
                         onChange={(e) => updateDRCSettings({ minClearance: parseFloat(e.target.value) })}
-                        className="accent-cyan-500 cursor-pointer"
+                        className="accent-emerald-700 cursor-pointer"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <div className="flex justify-between items-center">
                         <label className="text-[10px] text-zinc-500 font-mono uppercase">Analog-Digital Isolation (USP)</label>
-                        <span className="text-[10px] text-emerald-400 font-mono">{drcSettings.analogDigitalIsolation}</span>
+                        <span className="text-[10px] text-emerald-800 font-bold font-mono">{drcSettings.analogDigitalIsolation}</span>
                       </div>
                       <input
                         type="range"
@@ -690,19 +690,19 @@ void loop() {
                         step="0.1"
                         value={drcSettings.analogDigitalIsolation}
                         onChange={(e) => updateDRCSettings({ analogDigitalIsolation: parseFloat(e.target.value) })}
-                        className="accent-emerald-500 cursor-pointer"
+                        className="accent-emerald-700 cursor-pointer"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* DRC Violations List */}
-                <div className="border-t border-zinc-800/40 pt-5">
-                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-500 mb-3 font-mono">
+                <div className="border-t border-zinc-200/80 pt-5">
+                  <h3 className="text-[10px] font-bold tracking-widest text-zinc-400 mb-3 font-mono">
                     VIOLATIONS ({drcViolations.length})
                   </h3>
                   {drcViolations.length === 0 ? (
-                    <div className="rounded-xl border border-emerald-950/40 bg-emerald-950/10 p-3.5 text-xs text-emerald-400 flex items-center gap-2 font-medium">
+                    <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3.5 text-xs text-emerald-800 flex items-center gap-2 font-bold shadow-sm">
                       <Check className="h-4 w-4 flex-shrink-0" />
                       <span>All design rule checks passed!</span>
                     </div>
@@ -711,9 +711,9 @@ void loop() {
                       {drcViolations.map((violation) => (
                         <div 
                           key={violation.id} 
-                          className="rounded-xl border border-red-950/30 bg-red-950/15 p-3 text-[10.5px] text-red-400/90 leading-snug flex gap-2"
+                          className="rounded-xl border border-red-100 bg-red-50/60 p-3 text-[10.5px] text-red-750 leading-snug flex gap-2 shadow-sm"
                         >
-                          <AlertCircle className="h-4 w-4 flex-shrink-0 text-red-500 mt-0.5" />
+                          <AlertCircle className="h-4 w-4 flex-shrink-0 text-red-655 mt-0.5" />
                           <span>{violation.message}</span>
                         </div>
                       ))}
@@ -722,12 +722,12 @@ void loop() {
                 </div>
 
                 {/* Pre-flight info */}
-                <div className="rounded-xl border border-zinc-800 bg-[#0e1322]/50 p-4 text-xs flex flex-col gap-2">
-                  <div className="flex items-center gap-1.5 text-zinc-300 font-semibold font-mono">
-                    <Zap className="h-4 w-4 text-emerald-400 animate-pulse" />
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-4 text-xs flex flex-col gap-2 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-zinc-700 font-semibold font-mono">
+                    <Zap className="h-4 w-4 text-emerald-700 animate-pulse" />
                     PRE-FLIGHT ADVISORY
                   </div>
-                  <p className="text-[11px] text-zinc-400 leading-normal">
+                  <p className="text-[11px] text-zinc-500 leading-normal">
                     This studio implements real-time visual rule calculations. Placing digital lines too close to high-noise analog nodes automatically signals warnings.
                   </p>
                 </div>
@@ -738,48 +738,48 @@ void loop() {
       </div>
 
       {/* 5. Bottom Status Bar */}
-      <footer className="flex h-10 items-center justify-between border-t border-zinc-800 bg-[#090d16] px-6 text-xs text-zinc-400">
+      <footer className="flex h-10 items-center justify-between border-t border-zinc-200 bg-white px-6 text-xs text-zinc-600 shadow-sm z-20">
         <div className="flex items-center gap-5">
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-md shadow-emerald-500/25" />
-            <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wide">STATUS // ONLINE</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 shadow-md shadow-emerald-600/25" />
+            <span className="font-mono text-[10px] text-zinc-550 uppercase tracking-wide">STATUS // ONLINE</span>
           </div>
 
-          <div className="h-4 w-px bg-zinc-800" />
+          <div className="h-4 w-px bg-zinc-200" />
 
           {/* Active Layer Indicator */}
           <div className="flex items-center gap-1.5">
-            <Layers className="h-3.5 w-3.5 text-zinc-500" />
-            <span className="text-zinc-500 font-mono text-[10px] uppercase">Layer:</span>
+            <Layers className="h-3.5 w-3.5 text-zinc-400" />
+            <span className="text-zinc-450 font-mono text-[10px] uppercase">Layer:</span>
             <select
               value={activeLayer}
               onChange={(e) => setActiveLayer(e.target.value as LayerType)}
-              className="bg-transparent text-zinc-300 font-semibold font-mono hover:text-cyan-400 cursor-pointer focus:outline-none"
+              className="bg-transparent text-zinc-750 font-semibold font-mono hover:text-emerald-800 cursor-pointer focus:outline-none"
             >
-              <option value="TopCopper" className="bg-[#090d16] text-[#ef4444]">Top Copper (F.Cu)</option>
-              <option value="BottomCopper" className="bg-[#090d16] text-[#3b82f6]">Bottom Copper (B.Cu)</option>
-              <option value="Silkscreen" className="bg-[#090d16] text-[#22c55e]">Silkscreen (F.Silk)</option>
-              <option value="Drill" className="bg-[#090d16] text-[#eab308]">Drill Holes</option>
+              <option value="TopCopper" className="bg-white text-[#ef4444]">Top Copper (F.Cu)</option>
+              <option value="BottomCopper" className="bg-white text-[#3b82f6]">Bottom Copper (B.Cu)</option>
+              <option value="Silkscreen" className="bg-white text-[#10b981]">Silkscreen (F.Silk)</option>
+              <option value="Drill" className="bg-white text-[#d97706]">Drill Holes</option>
             </select>
           </div>
         </div>
 
         {/* Metrics and Counts */}
-        <div className="flex items-center gap-5 font-mono text-[10px]">
+        <div className="flex items-center gap-5 font-mono text-[10px] text-zinc-550">
           <span>COMPONENTS: {Object.keys(boardState.components).length}</span>
           <span>NETS: {Object.keys(boardState.nets).length}</span>
           
-          <div className="h-4 w-px bg-zinc-800" />
+          <div className="h-4 w-px bg-zinc-200" />
 
           {/* DRC indicator */}
           {drcViolations.length === 0 ? (
-            <div className="flex items-center gap-1 text-emerald-400 font-semibold bg-emerald-950/20 border border-emerald-900/30 px-2 py-0.5 rounded">
-              <Check className="h-3.5 w-3.5" />
+            <div className="flex items-center gap-1 text-emerald-850 font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded shadow-sm">
+              <Check className="h-3.5 w-3.5 text-emerald-700" />
               DRC PASS
             </div>
           ) : (
-            <div className="flex items-center gap-1 text-red-400 font-semibold bg-red-950/20 border border-red-900/30 px-2 py-0.5 rounded">
-              <AlertCircle className="h-3.5 w-3.5" />
+            <div className="flex items-center gap-1 text-red-750 font-bold bg-red-50 border border-red-200 px-2 py-0.5 rounded shadow-sm">
+              <AlertCircle className="h-3.5 w-3.5 text-red-600" />
               DRC: {drcViolations.length} ERRORS
             </div>
           )}
@@ -787,13 +787,13 @@ void loop() {
       </footer>
       {/* 6. ESP32 Simulation Console Dialog */}
       {simOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative w-full max-w-2xl bg-[#090d16] border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden max-h-[85vh] animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="relative w-full max-w-2xl bg-white border border-zinc-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden max-h-[85vh] animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-zinc-800 bg-[#0e1422] p-4">
+            <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 p-4 text-zinc-800">
               <div className="flex items-center gap-2.5">
-                <Zap className="h-4.5 w-4.5 text-emerald-400 animate-pulse" />
-                <h3 className="text-sm font-semibold tracking-wider font-mono">
+                <Zap className="h-4.5 w-4.5 text-emerald-700 animate-pulse" />
+                <h3 className="text-sm font-bold tracking-wider font-mono text-zinc-800">
                   ESP32 PRE-FLIGHT LOGIC TESTER
                 </h3>
               </div>
@@ -807,40 +807,39 @@ void loop() {
                   setSimulating(false);
                   setSimOpen(false);
                 }}
-                className="text-zinc-500 hover:text-zinc-300 text-xs font-semibold px-2 py-1 rounded hover:bg-zinc-800"
+                className="text-zinc-500 hover:text-zinc-800 text-xs font-semibold px-2.5 py-1 rounded hover:bg-zinc-150/60"
               >
                 CLOSE
               </button>
             </div>
 
             {/* Modal Layout */}
-            <div className="grid grid-cols-2 divide-x divide-zinc-800 flex-1 overflow-hidden h-[380px]">
+            <div className="grid grid-cols-2 divide-x divide-zinc-200 flex-1 overflow-hidden h-[380px]">
               {/* Left Column: Mock C++ Script Editor */}
-              <div className="p-4 flex flex-col gap-2 overflow-hidden">
-                <div className="flex justify-between items-center text-[10px] text-zinc-500 font-mono">
+              <div className="p-4 flex flex-col gap-2 overflow-hidden bg-white">
+                <div className="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
                   <span>MOCK_SKETCH.ino</span>
-                  <span className="text-emerald-500">C++ LIVE EDITOR</span>
-                </div>
-                <textarea
+                  <span className="text-emerald-750 font-bold">C++ LIVE EDITOR</span>
+                              <textarea
                   value={simCode}
                   onChange={(e) => setSimCode(e.target.value)}
                   disabled={simulating}
-                  className="flex-1 rounded-xl bg-[#05070a] border border-zinc-900/60 p-4 font-mono text-[10.5px] text-zinc-300 focus:outline-none focus:border-zinc-800 resize-none leading-relaxed overflow-y-auto"
+                  className="flex-1 rounded-xl bg-zinc-50 border border-zinc-200 p-4 font-mono text-[10.5px] text-zinc-705 focus:outline-none focus:border-zinc-300 resize-none leading-relaxed overflow-y-auto"
                 />
               </div>
 
               {/* Right Column: Console Log */}
-              <div className="p-4 flex flex-col gap-2 overflow-hidden">
-                <div className="text-[10px] text-zinc-500 font-mono">
+              <div className="p-4 flex flex-col gap-2 overflow-hidden bg-zinc-50/20">
+                <div className="text-[10px] text-zinc-400 font-mono">
                   TERMINAL OUTPUT
                 </div>
-                <div className="flex-1 rounded-xl bg-black/80 border border-zinc-900/60 p-4 font-mono text-[10px] text-zinc-300 overflow-y-auto flex flex-col gap-1.5 custom-scrollbar">
+                <div className="flex-1 rounded-xl bg-zinc-950 p-4 font-mono text-[10px] text-zinc-300 overflow-y-auto flex flex-col gap-1.5 custom-scrollbar">
                   {simLogs.map((log, idx) => (
                     <div key={idx} className={
                       log.includes("[Simulation]") 
-                        ? log.includes("HIGH") ? "text-emerald-400 font-bold" : "text-amber-500/80"
+                        ? log.includes("HIGH") ? "text-emerald-400 font-bold" : "text-emerald-300/80"
                         : log.includes("[DRC]") 
-                          ? "text-cyan-400" 
+                          ? "text-emerald-400" 
                           : log.includes("[System]") 
                             ? "text-zinc-400" 
                             : "text-zinc-500"
@@ -859,7 +858,7 @@ void loop() {
             </div>
 
             {/* Modal Actions */}
-            <div className="border-t border-zinc-800 bg-[#0e1422] p-4 flex justify-between items-center">
+            <div className="border-t border-zinc-200 bg-zinc-50 p-4 flex justify-between items-center">
               <span className="text-[10.5px] text-zinc-500 font-mono leading-snug max-w-[50%]">
                 Look at the canvas LED component after clicking run!
               </span>
@@ -879,7 +878,7 @@ void loop() {
                         "[System] Logic Simulator stopped by user. Pin logic restored to standard LOW.",
                       ]);
                     }}
-                    className="flex items-center gap-2 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold text-xs px-4 py-2.5 shadow-md shadow-red-600/10 transition"
+                    className="flex items-center gap-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs px-4 py-2.5 shadow-md shadow-red-600/10 transition cursor-pointer"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     Stop Logic Simulation
@@ -911,14 +910,14 @@ void loop() {
 
                       setSimInterval(interval);
                     }}
-                    className="flex items-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-4 py-2.5 shadow-md shadow-emerald-600/10 transition"
+                    className="flex items-center gap-2 rounded-lg bg-emerald-700 hover:bg-emerald-850 text-white font-semibold text-xs px-4 py-2.5 shadow-md shadow-emerald-700/15 transition cursor-pointer"
                   >
                     <Zap className="h-3.5 w-3.5" />
                     Run Logic Simulation
                   </button>
                 )}
               </div>
-            </div>
+            </div>   </div>
           </div>
         </div>
       )}

@@ -266,10 +266,10 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
               isSimActive
                 ? "#22c55e"
                 : isSelected
-                ? "#06b6d4"
+                ? "#059669"
                 : mode === "schematic"
-                ? "#38bdf8"
-                : "#eab308"
+                ? "#166534"
+                : "#d97706"
             }
             strokeWidth={
               isSimActive
@@ -285,7 +285,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
             hitStrokeWidth={12} // Generous click boundary for easy editing
             dash={mode === "pcb" && !isSelected ? [4, 4] : undefined}
             shadowBlur={isSimActive || isSelected ? 8 : 0}
-            shadowColor={isSimActive ? "#22c55e" : "#06b6d4"}
+            shadowColor={isSimActive ? "#22c55e" : "#059669"}
             opacity={isSimActive || isSelected ? 1 : mode === "schematic" ? 0.75 : 0.35}
             onClick={(e) => {
               e.cancelBubble = true;
@@ -307,19 +307,19 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
   return (
     <div 
       ref={containerRef}
-      className="relative flex-1 bg-[#05070a] border border-zinc-800 rounded-2xl overflow-hidden flex"
+      className="relative flex-1 bg-zinc-100 border border-zinc-200 rounded-2xl overflow-hidden flex shadow-inner"
     >
       {/* HUD Info bar */}
       <div className="absolute top-4 left-4 z-10 flex gap-2 flex-wrap max-w-[80%]">
-        <div className="bg-zinc-950/90 border border-zinc-800/80 rounded-xl px-3.5 py-2 text-[10px] font-mono backdrop-blur flex items-center gap-2 shadow-lg shadow-black/40">
-          <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-          <span className="text-zinc-400">TOOL:</span>
-          <span className="text-cyan-400 font-bold uppercase">{activeTool}</span>
+        <div className="bg-white/95 border border-zinc-200/80 rounded-xl px-3.5 py-2 text-[10px] font-mono flex items-center gap-2 shadow-md text-zinc-500">
+          <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+          <span>TOOL:</span>
+          <span className="text-emerald-800 font-bold uppercase">{activeTool}</span>
         </div>
         {wireStartPin && (
-          <div className="bg-emerald-950/90 border border-emerald-900/80 rounded-xl px-3.5 py-2 text-[10px] font-mono backdrop-blur flex items-center gap-2 shadow-lg">
-            <span className="text-emerald-400 font-bold animate-pulse">CONNECTING PIN:</span>
-            <span className="text-zinc-200">
+          <div className="bg-emerald-50 border border-emerald-200/80 rounded-xl px-3.5 py-2 text-[10px] font-mono flex items-center gap-2 shadow-md text-emerald-800">
+            <span className="font-bold animate-pulse">CONNECTING PIN:</span>
+            <span className="text-zinc-700">
               {boardState.components[wireStartPin.compId]?.libraryRef} ({wireStartPin.pinId})
             </span>
           </div>
@@ -367,12 +367,12 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
             y={0}
             width={boardWidthPx}
             height={boardHeightPx}
-            fill={mode === "schematic" ? "#0f172a" : "#080a10"}
-            stroke={mode === "schematic" ? "#334155" : "#10b981"}
+            fill={mode === "schematic" ? "#fdfdfd" : "#0b3c20"}
+            stroke={mode === "schematic" ? "#cbd5e1" : "#d97706"}
             strokeWidth={mode === "schematic" ? 1.5 : 3}
-            shadowColor={mode === "schematic" ? "#000000" : "#10b981"}
-            shadowBlur={mode === "schematic" ? 15 : 25}
-            shadowOpacity={mode === "schematic" ? 0.4 : 0.25}
+            shadowColor={mode === "schematic" ? "#cbd5e1" : "#000000"}
+            shadowBlur={mode === "schematic" ? 10 : 20}
+            shadowOpacity={mode === "schematic" ? 0.3 : 0.4}
             cornerRadius={4}
           />
 
@@ -382,7 +382,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
               key={`grid_v_${i}`}
               name="grid-lines"
               points={[i * gridSpacing, 0, i * gridSpacing, boardHeightPx]}
-              stroke="#141b2d"
+              stroke={mode === "schematic" ? "#f1f5f9" : "#0f4c2c"}
               strokeWidth={0.5}
             />
           ))}
@@ -391,7 +391,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
               key={`grid_h_${i}`}
               name="grid-lines"
               points={[0, i * gridSpacing, boardWidthPx, i * gridSpacing]}
-              stroke="#141b2d"
+              stroke={mode === "schematic" ? "#f1f5f9" : "#0f4c2c"}
               strokeWidth={0.5}
             />
           ))}
@@ -520,11 +520,11 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                   mode === "schematic" ? (
                     <Circle
                       radius={3}
-                      fill="#06b6d4"
-                      stroke={isSelected ? "#22d3ee" : "#0891b2"}
+                      fill="#059669"
+                      stroke={isSelected ? "#059669" : "#0f5132"}
                       strokeWidth={isSelected ? 1 : 0.5}
                       shadowBlur={isSelected ? 6 : 0}
-                      shadowColor="#22d3ee"
+                      shadowColor="#059669"
                     />
                   ) : (
                     <Group>
@@ -532,15 +532,15 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                       <Circle
                         radius={w / 2}
                         fill="#b45309"
-                        stroke={isSelected ? "#22d3ee" : "#f59e0b"}
+                        stroke={isSelected ? "#059669" : "#f59e0b"}
                         strokeWidth={isSelected ? 1.5 : 0.75}
                         shadowBlur={isSelected ? 10 : 2}
-                        shadowColor={isSelected ? "#22d3ee" : "#b45309"}
+                        shadowColor={isSelected ? "#059669" : "#b45309"}
                       />
                       {/* Drill hole in center */}
                       <Circle
                         radius={(0.3 / 2) * SCALE}
-                        fill="#05070a"
+                        fill="#090d16"
                       />
                     </Group>
                   )
@@ -549,18 +549,18 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                     <Group>
                       <Circle
                         radius={w / 2}
-                        stroke={isSelected ? "#22d3ee" : "#64748b"}
+                        stroke={isSelected ? "#059669" : "#64748b"}
                         strokeWidth={isSelected ? 1.5 : 1}
                         dash={[3, 3]}
                       />
                       <Line
                         points={[0, -w / 2, 0, w / 2]}
-                        stroke={isSelected ? "#22d3ee" : "#64748b"}
+                        stroke={isSelected ? "#059669" : "#64748b"}
                         strokeWidth={0.75}
                       />
                       <Line
                         points={[-w / 2, 0, w / 2, 0]}
-                        stroke={isSelected ? "#22d3ee" : "#64748b"}
+                        stroke={isSelected ? "#059669" : "#64748b"}
                         strokeWidth={0.75}
                       />
                     </Group>
@@ -569,7 +569,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                       {/* Outer clearance circle */}
                       <Circle
                         radius={w / 2}
-                        stroke={isSelected ? "#22d3ee" : "#eab308"}
+                        stroke={isSelected ? "#059669" : "#eab308"}
                         strokeWidth={isSelected ? 1.5 : 0.75}
                         dash={[4, 2]}
                         opacity={0.6}
@@ -577,7 +577,7 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                       {/* Inner mechanical drill hole */}
                       <Circle
                         radius={(3.2 / 2) * SCALE}
-                        fill="#05070a"
+                        fill="#090d16"
                         stroke="#475569"
                         strokeWidth={1.5}
                       />
@@ -589,10 +589,10 @@ export default function CanvasArea({ mode }: { mode: "schematic" | "pcb" }) {
                     y={-h / 2}
                     width={w}
                     height={h}
-                    fill={mode === "schematic" ? "#1e293b" : template.color}
-                    stroke={isSelected ? "#22d3ee" : mode === "schematic" ? "#0284c7" : "#4b5563"}
+                    fill={mode === "schematic" ? "#ffffff" : template.color}
+                    stroke={isSelected ? "#059669" : mode === "schematic" ? "#166534" : "#cbd5e1"}
                     strokeWidth={isSelected ? 2 : 1}
-                    shadowColor={isSelected ? "#22d3ee" : "#000000"}
+                    shadowColor={isSelected ? "#059669" : "#000000"}
                     shadowBlur={isSelected ? 10 : 4}
                     shadowOpacity={isSelected ? 0.6 : 0.3}
                     cornerRadius={mode === "schematic" ? 0 : 2}

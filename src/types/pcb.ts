@@ -62,6 +62,7 @@ export enum ComponentPackage {
   DIP_14 = "DIP-14",
   DIP_16 = "DIP-16",
   DIP_28 = "DIP-28",
+  DIP_40 = "DIP-40",
   SIP_3 = "SIP-3",
   TO_92 = "TO-92",
   TO_220 = "TO-220",

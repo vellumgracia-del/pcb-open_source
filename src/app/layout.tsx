@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${firaCode.variable} h-full antialiased dark`}
+      className={`${plusJakartaSans.variable} ${firaCode.variable} h-full antialiased light`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#07090e] text-zinc-100">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#f8fafc] text-zinc-900">{children}</body>
     </html>
   );
 }
